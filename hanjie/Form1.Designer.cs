@@ -28,76 +28,95 @@
     /// </summary>
     private void InitializeComponent()
     {
-      this.panel1 = new System.Windows.Forms.Panel();
-      this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-      this.fichierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.nouveauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.menuStrip1.SuspendLayout();
-      this.SuspendLayout();
-      // 
-      // panel1
-      // 
-      this.panel1.Location = new System.Drawing.Point(12, 40);
-      this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(518, 409);
-      this.panel1.TabIndex = 0;
-      // 
-      // menuStrip1
-      // 
-      this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fichierToolStripMenuItem});
-      this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-      this.menuStrip1.Name = "menuStrip1";
-      this.menuStrip1.Size = new System.Drawing.Size(542, 24);
-      this.menuStrip1.TabIndex = 1;
-      this.menuStrip1.Text = "menuStrip1";
-      // 
-      // fichierToolStripMenuItem
-      // 
-      this.fichierToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nouveauToolStripMenuItem,
+        this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+        this.fichierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.importerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.partieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.OFD = new System.Windows.Forms.OpenFileDialog();
+        this.pictureBox1 = new System.Windows.Forms.PictureBox();
+        this.menuStrip1.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+        this.SuspendLayout();
+        // 
+        // menuStrip1
+        // 
+        this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fichierToolStripMenuItem,
+            this.partieToolStripMenuItem});
+        this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+        this.menuStrip1.Name = "menuStrip1";
+        this.menuStrip1.Size = new System.Drawing.Size(542, 24);
+        this.menuStrip1.TabIndex = 1;
+        this.menuStrip1.Text = "menuStrip1";
+        // 
+        // fichierToolStripMenuItem
+        // 
+        this.fichierToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importerToolStripMenuItem,
             this.quitterToolStripMenuItem});
-      this.fichierToolStripMenuItem.Name = "fichierToolStripMenuItem";
-      this.fichierToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-      this.fichierToolStripMenuItem.Text = "Fichier";
-      // 
-      // nouveauToolStripMenuItem
-      // 
-      this.nouveauToolStripMenuItem.Name = "nouveauToolStripMenuItem";
-      this.nouveauToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-      this.nouveauToolStripMenuItem.Text = "Nouveau";
-      // 
-      // quitterToolStripMenuItem
-      // 
-      this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
-      this.quitterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-      this.quitterToolStripMenuItem.Text = "Quitter";
-      // 
-      // Form1
-      // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-      this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(542, 461);
-      this.Controls.Add(this.panel1);
-      this.Controls.Add(this.menuStrip1);
-      this.MainMenuStrip = this.menuStrip1;
-      this.Name = "Form1";
-      this.Text = "Form1";
-      this.menuStrip1.ResumeLayout(false);
-      this.menuStrip1.PerformLayout();
-      this.ResumeLayout(false);
-      this.PerformLayout();
+        this.fichierToolStripMenuItem.Name = "fichierToolStripMenuItem";
+        this.fichierToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+        this.fichierToolStripMenuItem.Text = "Fichier";
+        // 
+        // importerToolStripMenuItem
+        // 
+        this.importerToolStripMenuItem.Name = "importerToolStripMenuItem";
+        this.importerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        this.importerToolStripMenuItem.Text = "Importer...";
+        this.importerToolStripMenuItem.Click += new System.EventHandler(this.importerToolStripMenuItem_Click);
+        // 
+        // quitterToolStripMenuItem
+        // 
+        this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
+        this.quitterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        this.quitterToolStripMenuItem.Text = "Quitter";
+        // 
+        // partieToolStripMenuItem
+        // 
+        this.partieToolStripMenuItem.Name = "partieToolStripMenuItem";
+        this.partieToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+        this.partieToolStripMenuItem.Text = "Partie";
+        // 
+        // OFD
+        // 
+        this.OFD.FileName = "openFileDialog1";
+        // 
+        // pictureBox1
+        // 
+        this.pictureBox1.Location = new System.Drawing.Point(12, 27);
+        this.pictureBox1.Name = "pictureBox1";
+        this.pictureBox1.Size = new System.Drawing.Size(518, 422);
+        this.pictureBox1.TabIndex = 2;
+        this.pictureBox1.TabStop = false;
+        // 
+        // Form1
+        // 
+        this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        this.ClientSize = new System.Drawing.Size(542, 461);
+        this.Controls.Add(this.pictureBox1);
+        this.Controls.Add(this.menuStrip1);
+        this.MainMenuStrip = this.menuStrip1;
+        this.Name = "Form1";
+        this.Text = "Form1";
+        this.menuStrip1.ResumeLayout(false);
+        this.menuStrip1.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+        this.ResumeLayout(false);
+        this.PerformLayout();
 
     }
 
     #endregion
 
-    private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.MenuStrip menuStrip1;
     private System.Windows.Forms.ToolStripMenuItem fichierToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem nouveauToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem importerToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem quitterToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem partieToolStripMenuItem;
+    private System.Windows.Forms.OpenFileDialog OFD;
+    private System.Windows.Forms.PictureBox pictureBox1;
   }
 }
 

@@ -8,6 +8,22 @@ namespace hanjie
     class Line
     {
         private int _index;
+        private string _indiceString;
+        private string _indiceSeparator;
+        private string _flush;
+        private Dictionary<int, int> _indicePosition;
+
+        public Dictionary<int, int> IndicePosition
+        {
+            get { return _indicePosition; }
+            set { _indicePosition = value; }
+        }
+
+        public string IndiceString
+        {
+            get { return _indiceString; }
+            set { _indiceString = value; }
+        }
 
         public int Index
         {
@@ -15,33 +31,27 @@ namespace hanjie
             set { _index = value; }
         }
 
-        private int _flush;
-
-        public int Flush
+        public string Flush
         {
             get { return _flush; }
             set { _flush = value; }
         }
 
-        private int _nbIndice;
-
-        public int NbIndice
+        public string IndiceSeparator
         {
-            get { return _nbIndice; }
-            set { _nbIndice = value; }
+            get { return _indiceSeparator; }
+            set { _indiceSeparator = value; }
         }
 
-        private int _separator;
+       
 
-        public int Separator
+        public Line(int index, string flush, string indice, string separator, Dictionary<int,int> indicepositon)
         {
-            get { return _separator; }
-            set { _separator = value; }
-        }
-
-        public Line()
-        {
-
+            this.Index = index;
+            this.Flush = flush;
+            this.IndiceString = indice;
+            this.IndiceSeparator = separator;
+            this.IndicePosition = indicepositon;
         }
     }
 }

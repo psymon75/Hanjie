@@ -17,9 +17,19 @@ namespace hanjie
 
         bool[,] imgMatrix;
 
+        Puzzle _puzzle;
+
+        internal Puzzle Puzzle
+        {
+            get { return _puzzle; }
+            set { _puzzle = value; }
+        }
+
         public Form1()
         {
             InitializeComponent();
+            this.Puzzle = new Puzzle();
+            Puzzle.Import("example.xml");
         }
 
         private bool[,] ImgToMatrix(Bitmap bmp, int matrixHeight, int matrixWidth)
@@ -63,7 +73,7 @@ namespace hanjie
                         p[0] = yolo;
                         p[1] = yolo;
                         p[2] = yolo;
-                        p += ; // passage au pixel suivant
+                        p += 3; // passage au pixel suivant
                     }
                     p += offset;
                 }

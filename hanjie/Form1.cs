@@ -40,7 +40,7 @@ namespace hanjie
             int stepWidth = bmp.Width / matrixWidth;
             bmp = niveauxDeGrisScan(bmp);
             Bitmap bad = ImageUtilities.ResizeImage((Image)bmp, 10, 10);
-            pictureBox1.Image = (Image)bad;
+
             //http://www.youtube.com/watch?v=DcaVYuyXTMs
             //Idée : redémensionner l'image en 10x10 puit récupérer les pixels pour remplir la matrix
             //Regarder les methode de Image pour faire du rééchantillionnage (image sampling)
@@ -90,13 +90,21 @@ namespace hanjie
             if (e.Button == MouseButtons.Left)
             {
                 _g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(e.X - e.X % DEFAULT_CELL_SIZE - 1, e.Y - e.Y % DEFAULT_CELL_SIZE - 1, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
+                this.Puzzle.UpdatePixel(ConvertPixelPoint(e.Location),true);
+                
                 //_g.DrawRectangle(new Pen(Color.Black), new Rectangle(e.X - e.X % DEFAULT_CELL_SIZE, e.Y - e.Y % DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
             }
             else if (e.Button == MouseButtons.Right)
             {
                 _g.FillRectangle(new SolidBrush(panel1.BackColor), new Rectangle(e.X - e.X % DEFAULT_CELL_SIZE - 1, e.Y - e.Y % DEFAULT_CELL_SIZE - 1, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
                 _g.DrawRectangle(new Pen(Color.Gray), new Rectangle(e.X - e.X % DEFAULT_CELL_SIZE - 1, e.Y - e.Y % DEFAULT_CELL_SIZE - 1, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
+                this.Puzzle.UpdatePixel(ConvertPixelPoint(e.Location),false);
             }
+        }
+
+        private Point ConvertPixelPoint(Point pixelpoint)
+        {
+          return new Point((pixelpoint.X - pixelpoint.X % DEFAULT_CELL_SIZE - 1) / DEFAULT_CELL_SIZE, (pixelpoint.Y - pixelpoint.Y % DEFAULT_CELL_SIZE - 1) / DEFAULT_CELL_SIZE);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -106,8 +114,8 @@ namespace hanjie
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            for (int y = -1; y <= panel1.Height; y += DEFAULT_CELL_SIZE)
-                for (int x = -1; x <= panel1.Width; x += DEFAULT_CELL_SIZE)
+            for (int y = -1; y <= 300; y += DEFAULT_CELL_SIZE)
+                for (int x = -1; x <= 300; x += DEFAULT_CELL_SIZE)
                     _g.DrawRectangle(new Pen(Color.Gray), new Rectangle(x, y, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
         }
 

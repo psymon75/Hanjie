@@ -257,5 +257,19 @@ namespace hanjie
             }
             bmp.UnlockBits(bmpData);
         }
+
+
+
+        public void UpdatePixel(Point position, bool enable)
+        {
+            this.Lines[position.Y].Flush.Remove(position.X);
+            this.Lines[position.Y].Flush.Insert(position.X, (enable) ? "1" : "0");
+            this.Lines[position.Y].GenerateFromFlush(this.Lines[position.Y].Flush);
+
+
+            this.Colums[position.X].Flush.Remove(position.Y);
+            this.Colums[position.X].Flush.Insert(position.Y, (enable) ? "1" : "0");
+            this.Colums[position.X].GenerateFromFlush(this.Lines[position.X].Flush);
+        }
     }
 }

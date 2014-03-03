@@ -30,18 +30,16 @@
     {
         this.menuStrip1 = new System.Windows.Forms.MenuStrip();
         this.fichierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.exporterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         this.importerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.xMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         this.partieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         this.OFD = new System.Windows.Forms.OpenFileDialog();
         this.panel1 = new System.Windows.Forms.Panel();
-        this.pictureBox1 = new System.Windows.Forms.PictureBox();
-        this.exporterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         this.SFD = new System.Windows.Forms.SaveFileDialog();
-        this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        this.xMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         this.menuStrip1.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
         this.SuspendLayout();
         // 
         // menuStrip1
@@ -65,6 +63,13 @@
         this.fichierToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
         this.fichierToolStripMenuItem.Text = "Fichier";
         // 
+        // exporterToolStripMenuItem
+        // 
+        this.exporterToolStripMenuItem.Name = "exporterToolStripMenuItem";
+        this.exporterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        this.exporterToolStripMenuItem.Text = "Exporter..";
+        this.exporterToolStripMenuItem.Click += new System.EventHandler(this.exporterToolStripMenuItem_Click);
+        // 
         // importerToolStripMenuItem
         // 
         this.importerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -73,6 +78,20 @@
         this.importerToolStripMenuItem.Name = "importerToolStripMenuItem";
         this.importerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         this.importerToolStripMenuItem.Text = "Importer...";
+        // 
+        // imageToolStripMenuItem
+        // 
+        this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
+        this.imageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        this.imageToolStripMenuItem.Text = "Image";
+        this.imageToolStripMenuItem.Click += new System.EventHandler(this.imageToolStripMenuItem_Click);
+        // 
+        // xMLToolStripMenuItem
+        // 
+        this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
+        this.xMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        this.xMLToolStripMenuItem.Text = "XML";
+        this.xMLToolStripMenuItem.Click += new System.EventHandler(this.xMLToolStripMenuItem_Click);
         // 
         // quitterToolStripMenuItem
         // 
@@ -93,48 +112,18 @@
         // panel1
         // 
         this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-        this.panel1.Location = new System.Drawing.Point(105, 117);
+        this.panel1.Location = new System.Drawing.Point(0, 27);
         this.panel1.Name = "panel1";
-        this.panel1.Size = new System.Drawing.Size(300, 300);
+        this.panel1.Size = new System.Drawing.Size(542, 434);
         this.panel1.TabIndex = 2;
         this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
         this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
-        // 
-        // pictureBox1
-        // 
-        this.pictureBox1.Location = new System.Drawing.Point(13, 37);
-        this.pictureBox1.Name = "pictureBox1";
-        this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-        this.pictureBox1.TabIndex = 3;
-        this.pictureBox1.TabStop = false;
-        // 
-        // exporterToolStripMenuItem
-        // 
-        this.exporterToolStripMenuItem.Name = "exporterToolStripMenuItem";
-        this.exporterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-        this.exporterToolStripMenuItem.Text = "Exporter..";
-        this.exporterToolStripMenuItem.Click += new System.EventHandler(this.exporterToolStripMenuItem_Click);
-        // 
-        // imageToolStripMenuItem
-        // 
-        this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
-        this.imageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-        this.imageToolStripMenuItem.Text = "Image";
-        this.imageToolStripMenuItem.Click += new System.EventHandler(this.imageToolStripMenuItem_Click);
-        // 
-        // xMLToolStripMenuItem
-        // 
-        this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
-        this.xMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-        this.xMLToolStripMenuItem.Text = "XML";
-        this.xMLToolStripMenuItem.Click += new System.EventHandler(this.xMLToolStripMenuItem_Click);
         // 
         // Form1
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size(542, 461);
-        this.Controls.Add(this.pictureBox1);
         this.Controls.Add(this.panel1);
         this.Controls.Add(this.menuStrip1);
         this.MainMenuStrip = this.menuStrip1;
@@ -143,7 +132,6 @@
         this.Load += new System.EventHandler(this.Form1_Load);
         this.menuStrip1.ResumeLayout(false);
         this.menuStrip1.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
         this.ResumeLayout(false);
         this.PerformLayout();
 
@@ -158,7 +146,6 @@
     private System.Windows.Forms.ToolStripMenuItem partieToolStripMenuItem;
     private System.Windows.Forms.OpenFileDialog OFD;
     private System.Windows.Forms.Panel panel1;
-    private System.Windows.Forms.PictureBox pictureBox1;
     private System.Windows.Forms.ToolStripMenuItem exporterToolStripMenuItem;
     private System.Windows.Forms.SaveFileDialog SFD;
     private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;

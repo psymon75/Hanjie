@@ -36,6 +36,10 @@
         this.OFD = new System.Windows.Forms.OpenFileDialog();
         this.panel1 = new System.Windows.Forms.Panel();
         this.pictureBox1 = new System.Windows.Forms.PictureBox();
+        this.exporterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.SFD = new System.Windows.Forms.SaveFileDialog();
+        this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.xMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         this.menuStrip1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
         this.SuspendLayout();
@@ -54,6 +58,7 @@
         // fichierToolStripMenuItem
         // 
         this.fichierToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exporterToolStripMenuItem,
             this.importerToolStripMenuItem,
             this.quitterToolStripMenuItem});
         this.fichierToolStripMenuItem.Name = "fichierToolStripMenuItem";
@@ -62,15 +67,17 @@
         // 
         // importerToolStripMenuItem
         // 
+        this.importerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imageToolStripMenuItem,
+            this.xMLToolStripMenuItem});
         this.importerToolStripMenuItem.Name = "importerToolStripMenuItem";
-        this.importerToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+        this.importerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         this.importerToolStripMenuItem.Text = "Importer...";
-        this.importerToolStripMenuItem.Click += new System.EventHandler(this.importerToolStripMenuItem_Click);
         // 
         // quitterToolStripMenuItem
         // 
         this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
-        this.quitterToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+        this.quitterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
         this.quitterToolStripMenuItem.Text = "Quitter";
         // 
         // partieToolStripMenuItem
@@ -100,6 +107,27 @@
         this.pictureBox1.Size = new System.Drawing.Size(100, 50);
         this.pictureBox1.TabIndex = 3;
         this.pictureBox1.TabStop = false;
+        // 
+        // exporterToolStripMenuItem
+        // 
+        this.exporterToolStripMenuItem.Name = "exporterToolStripMenuItem";
+        this.exporterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        this.exporterToolStripMenuItem.Text = "Exporter..";
+        this.exporterToolStripMenuItem.Click += new System.EventHandler(this.exporterToolStripMenuItem_Click);
+        // 
+        // imageToolStripMenuItem
+        // 
+        this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
+        this.imageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        this.imageToolStripMenuItem.Text = "Image";
+        this.imageToolStripMenuItem.Click += new System.EventHandler(this.imageToolStripMenuItem_Click);
+        // 
+        // xMLToolStripMenuItem
+        // 
+        this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
+        this.xMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+        this.xMLToolStripMenuItem.Text = "XML";
+        this.xMLToolStripMenuItem.Click += new System.EventHandler(this.xMLToolStripMenuItem_Click);
         // 
         // Form1
         // 
@@ -131,6 +159,10 @@
     private System.Windows.Forms.OpenFileDialog OFD;
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.PictureBox pictureBox1;
+    private System.Windows.Forms.ToolStripMenuItem exporterToolStripMenuItem;
+    private System.Windows.Forms.SaveFileDialog SFD;
+    private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem;
   }
 }
 

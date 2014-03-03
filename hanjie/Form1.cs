@@ -31,7 +31,6 @@ namespace hanjie
         {
             InitializeComponent();
             this.Puzzle = new Puzzle();
-            Puzzle.Import("example.xml");
         }
 
         private bool[,] ImgToMatrix(Bitmap bmp, int matrixHeight, int matrixWidth)
@@ -85,14 +84,6 @@ namespace hanjie
             return bmp;
         }
 
-        private void importerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                Bitmap img = new Bitmap(OFD.FileName, false);
-                this.imgMatrix = this.ImgToMatrix(img, DEFAULT_HEIGHT, DEFAULT_WIDTH);
-            }
-        }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -118,6 +109,64 @@ namespace hanjie
             for (int y = -1; y <= panel1.Height; y += DEFAULT_CELL_SIZE)
                 for (int x = -1; x <= panel1.Width; x += DEFAULT_CELL_SIZE)
                     _g.DrawRectangle(new Pen(Color.Gray), new Rectangle(x, y, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
+        }
+
+        private void DrawAtPosition(int x, int y)
+        {
+            _g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(x * DEFAULT_CELL_SIZE, y * DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
+        }
+
+        private void DrawPuzzle()
+        {
+            int countLine = 0;
+            int countColums = 0;
+            foreach (LineRow line in Puzzle.Lines)
+            {
+                countColums = 0;
+                foreach (char c in line.Flush)
+                {
+                    if (c == '1')
+                        DrawAtPosition(countColums,countLine);
+                    countColums++;
+                            
+                }
+                countLine++;
+            }
+        }
+
+        private void exporterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Puzzle.Export(SFD.FileName);
+                MessageBox.Show("Exportation réussie !");
+            }
+        }
+
+        private void imageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Bitmap img = new Bitmap(OFD.FileName, false);
+                Bitmap orig = ImageUtilities.ResizeImage((Image)img, 30, 30);
+                Bitmap clone = new Bitmap(orig.Width, orig.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                
+                using (Graphics gr = Graphics.FromImage(clone))
+                {
+                    gr.DrawImage(orig, new Rectangle(0, 0, clone.Width, clone.Height));
+                }
+                this.Puzzle.FromImage(clone,OFD.FileName);
+                DrawPuzzle();
+            }
+        }
+
+        private void xMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                this.Puzzle.Import(OFD.FileName);
+                DrawPuzzle();
+            }
         }
     }
 }

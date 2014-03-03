@@ -43,7 +43,36 @@ namespace hanjie
             set { _indiceSeparator = value; }
         }
 
-       
+        public void GenerateFromFlush(string flush)
+        {
+            this.IndiceString = "";
+            this.IndiceSeparator = "";
+            this.IndicePosition = new Dictionary<int, int>();
+            int count = 0;
+            int indexSequence = 0;
+            bool isInSequence = false;
+            foreach (char c in flush)
+            {
+                if (c == '1')
+                {
+                    isInSequence = true;
+                    count++;
+                }
+                else if(c == '0' && count != 0)
+                {
+                    isInSequence = false;
+                    this.IndiceString += count.ToString() + " ";
+                    this.IndiceSeparator += count.ToString() + ", ";
+                    this.IndicePosition.Add(indexSequence, count);
+                    count = 0;
+                    indexSequence++;
+                }
+            }
+            this.IndiceString = this.IndiceString.TrimEnd();
+            if(this.IndiceSeparator != "")
+                this.IndiceSeparator = this.IndiceSeparator.Remove(this.IndiceSeparator.LastIndexOf(','));
+
+        }
 
         public LineRow(int index, string flush, string indice, string separator, Dictionary<int,int> indicepositon)
         {
@@ -52,6 +81,15 @@ namespace hanjie
             this.IndiceString = indice;
             this.IndiceSeparator = separator;
             this.IndicePosition = indicepositon;
+        }
+
+        public LineRow(int index)
+        {
+            this.Index = index;
+            this.Flush = "";
+            this.IndiceString = "";
+            this.IndiceSeparator = "";
+            this.IndicePosition = new Dictionary<int, int>();
         }
     }
 }

@@ -12,17 +12,48 @@ namespace hanjie
     class Puzzle
     {
 
-        private List<Line> _lines;
+        private List<LineRow> _lines;
+        private List<LineRow> _colums;
+        int _nbLines;
+        int _nbColums;
+        string _name;
 
-        internal List<Line> Lines
+        #region Properties
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+        public int NbColums
+        {
+            get { return _nbColums; }
+            set { _nbColums = value; }
+        }
+
+        public int NbLines
+        {
+            get { return _nbLines; }
+            set { _nbLines = value; }
+        }
+
+        internal List<LineRow> Colums
+        {
+            get { return _colums; }
+            set { _colums = value; }
+        }
+
+        internal List<LineRow> Lines
         {
             get { return _lines; }
             set { _lines = value; }
         }
+        #endregion
 
         public Puzzle()
         {
-            this.Lines = new List<Line>();
+            this.Lines = new List<LineRow>();
+            this.Colums = new List<LineRow>();
         }
 
         public void Import(string xmlFilename)
@@ -30,7 +61,15 @@ namespace hanjie
             XmlDocument xml = new XmlDocument();
 
             xml.LoadXml(File.ReadAllText(xmlFilename));
-            XmlNodeList xnList = xml.SelectNodes("/PicrossPuzzle/Puzzle/Lines/Line");
+            XmlNodeList xnList = xml.SelectNodes("/PicrossPuzzle/Informations");
+            foreach (XmlNode xn in xnList)
+            {
+                this.Name = xn["Name"].InnerText;
+                this.NbLines = int.Parse(xn["NbLines"].Attributes["dim"].InnerText);
+                this.NbColums = int.Parse(xn["NbRows"].Attributes["dim"].InnerText);
+            }
+
+            xnList = xml.SelectNodes("/PicrossPuzzle/Puzzle/Lines/Line");
             foreach (XmlNode xn in xnList)
             {
                 Dictionary<int, int> indiceposition = new Dictionary<int,int>();
@@ -45,7 +84,24 @@ namespace hanjie
                         index++;
 	                }
                 }
-                this.Lines.Add(new Line(int.Parse(xn.Attributes["index"].InnerText),xn["flush"].InnerText,xn["indices_string"].InnerText,xn["indices_string_separator"].InnerText,indiceposition));
+                this.Lines.Add(new LineRow(int.Parse(xn.Attributes["index"].InnerText),xn["flush"].InnerText,xn["indices_string"].InnerText,xn["indices_string_separator"].InnerText,indiceposition));
+            }
+            xnList = xml.SelectNodes("/PicrossPuzzle/Puzzle/Lines/Row");
+            foreach (XmlNode xn in xnList)
+            {
+                Dictionary<int, int> indiceposition = new Dictionary<int, int>();
+                if (xn["indices_string"].InnerText != "")
+                {
+
+                    string[] indices = xn["indices_string"].InnerText.Split(' ');
+                    int index = 0;
+                    foreach (string indice in indices)
+                    {
+                        indiceposition.Add(index, int.Parse(indice));
+                        index++;
+                    }
+                }
+                this.Colums.Add(new LineRow(int.Parse(xn.Attributes["index"].InnerText), xn["flush"].InnerText, xn["indices_string"].InnerText, xn["indices_string_separator"].InnerText, indiceposition));
             }
 
         }

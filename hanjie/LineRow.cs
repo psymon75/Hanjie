@@ -5,7 +5,7 @@ using System.Text;
 
 namespace hanjie
 {
-    class Line
+    class LineRow
     {
         private int _index;
         private string _indiceString;
@@ -45,7 +45,7 @@ namespace hanjie
 
        
 
-        public Line(int index, string flush, string indice, string separator, Dictionary<int,int> indicepositon)
+        public LineRow(int index, string flush, string indice, string separator, Dictionary<int,int> indicepositon)
         {
             this.Index = index;
             this.Flush = flush;

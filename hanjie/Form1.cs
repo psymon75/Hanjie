@@ -15,6 +15,7 @@ namespace hanjie
         const int DEFAULT_HEIGHT = 10;
         const int DEFAULT_WIDTH = 10;
         const int DEFAULT_CELL_SIZE = 10;
+        const int OFFSET = 50;
 
         bool[,] imgMatrix;
         Graphics _g;
@@ -89,8 +90,11 @@ namespace hanjie
         {
             if (e.Button == MouseButtons.Left)
             {
+                if(new Rectangle(OFFSET,OFFSET,300 + DEFAULT_CELL_SIZE, 300 + DEFAULT_CELL_SIZE).Contains(e.Location))
+                {
                 _g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(e.X - e.X % DEFAULT_CELL_SIZE - 1, e.Y - e.Y % DEFAULT_CELL_SIZE - 1, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
                 this.Puzzle.UpdatePixel(ConvertPixelPoint(e.Location),true);
+                }
                 
                 //_g.DrawRectangle(new Pen(Color.Black), new Rectangle(e.X - e.X % DEFAULT_CELL_SIZE, e.Y - e.Y % DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
             }
@@ -104,7 +108,7 @@ namespace hanjie
 
         private Point ConvertPixelPoint(Point pixelpoint)
         {
-          return new Point((pixelpoint.X - pixelpoint.X % DEFAULT_CELL_SIZE - 1) / DEFAULT_CELL_SIZE, (pixelpoint.Y - pixelpoint.Y % DEFAULT_CELL_SIZE - 1) / DEFAULT_CELL_SIZE);
+          return new Point(((pixelpoint.X - OFFSET) - (pixelpoint.X  % DEFAULT_CELL_SIZE - 1)) / DEFAULT_CELL_SIZE, ((pixelpoint.Y - OFFSET) - (pixelpoint.Y % DEFAULT_CELL_SIZE - 1)) / DEFAULT_CELL_SIZE);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -116,12 +120,12 @@ namespace hanjie
         {
             for (int y = -1; y <= 300; y += DEFAULT_CELL_SIZE)
                 for (int x = -1; x <= 300; x += DEFAULT_CELL_SIZE)
-                    _g.DrawRectangle(new Pen(Color.Gray), new Rectangle(x, y, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
+                    _g.DrawRectangle(new Pen(Color.Gray), new Rectangle(OFFSET + x,OFFSET + y, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
         }
 
         private void DrawAtPosition(int x, int y)
         {
-            _g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(x * DEFAULT_CELL_SIZE, y * DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
+            _g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(x * DEFAULT_CELL_SIZE + OFFSET, y * DEFAULT_CELL_SIZE + OFFSET, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
         }
 
         private void DrawPuzzle()

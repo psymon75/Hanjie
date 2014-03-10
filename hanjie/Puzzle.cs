@@ -86,7 +86,7 @@ namespace hanjie
                 }
                 this.Lines.Add(new LineRow(int.Parse(xn.Attributes["index"].InnerText),xn["flush"].InnerText,xn["indices_string"].InnerText,xn["indices_string_separator"].InnerText,indiceposition));
             }
-            xnList = xml.SelectNodes("/PicrossPuzzle/Puzzle/Lines/Row");
+            xnList = xml.SelectNodes("/PicrossPuzzle/Puzzle/Rows/Row");
             foreach (XmlNode xn in xnList)
             {
                 Dictionary<int, int> indiceposition = new Dictionary<int, int>();
@@ -262,13 +262,13 @@ namespace hanjie
 
         public void UpdatePixel(Point position, bool enable)
         {
-            this.Lines[position.Y].Flush.Remove(position.X);
-            this.Lines[position.Y].Flush.Insert(position.X, (enable) ? "1" : "0");
+            this.Lines[position.Y].Flush = this.Lines[position.Y].Flush.Remove(position.X, 1);
+            this.Lines[position.Y].Flush = this.Lines[position.Y].Flush.Insert(position.X, (enable) ? "1" : "0");
             this.Lines[position.Y].GenerateFromFlush(this.Lines[position.Y].Flush);
 
 
-            this.Colums[position.X].Flush.Remove(position.Y);
-            this.Colums[position.X].Flush.Insert(position.Y, (enable) ? "1" : "0");
+            this.Colums[position.X].Flush = this.Colums[position.X].Flush.Remove(position.Y, 1);
+            this.Colums[position.X].Flush = this.Colums[position.X].Flush.Insert(position.Y, (enable) ? "1" : "0");
             this.Colums[position.X].GenerateFromFlush(this.Lines[position.X].Flush);
         }
     }

@@ -1,4 +1,10 @@
-﻿using System;
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////
+/// \file   Puzzle.cs
+///
+/// \brief  Implements the puzzle class.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,21 +15,52 @@ using System.Drawing.Imaging;
 
 namespace hanjie
 {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// \class  Puzzle
+    ///
+    /// \brief  A puzzle.
+    ///
+    /// \author Simon Menetrey
+    /// \date   16.03.2014
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
     class Puzzle
     {
 
+        /// \brief  The lines.
         private List<LineRow> _lines;
+        /// \brief  The colums.
         private List<LineRow> _colums;
+        /// \brief  The nb lines.
         int _nbLines;
+        /// \brief  The nb colums.
         int _nbColums;
+        /// \brief  The name.
         string _name;
 
         #region Properties
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \property   public string Name
+        ///
+        /// \brief  Gets or sets the name.
+        ///
+        /// \return The name.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public string Name
         {
             get { return _name; }
             set { _name = value; }
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \property   public int NbColums
+        ///
+        /// \brief  Gets or sets the nb colums.
+        ///
+        /// \return The nb colums.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         public int NbColums
         {
@@ -31,17 +68,41 @@ namespace hanjie
             set { _nbColums = value; }
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \property   public int NbLines
+        ///
+        /// \brief  Gets or sets the nb lines.
+        ///
+        /// \return The nb lines.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public int NbLines
         {
             get { return _nbLines; }
             set { _nbLines = value; }
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \property   internal List<LineRow> Colums
+        ///
+        /// \brief  Gets or sets the colums.
+        ///
+        /// \return The colums.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
         internal List<LineRow> Colums
         {
             get { return _colums; }
             set { _colums = value; }
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \property   internal List<LineRow> Lines
+        ///
+        /// \brief  Gets or sets the lines.
+        ///
+        /// \return The lines.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         internal List<LineRow> Lines
         {
@@ -50,11 +111,31 @@ namespace hanjie
         }
         #endregion
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn public Puzzle()
+        ///
+        /// \brief  Default constructor.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public Puzzle()
         {
             this.Lines = new List<LineRow>();
             this.Colums = new List<LineRow>();
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn public void Import(string xmlFilename)
+        ///
+        /// \brief  Imports puzzle from xml.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  xmlFilename Filename of the XML file.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         public void Import(string xmlFilename)
         {
@@ -105,6 +186,17 @@ namespace hanjie
             }
 
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn public void Export(string filename)
+        ///
+        /// \brief  Exports to xml.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  filename    Filename of the file.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         public void Export(string filename)
         {
@@ -200,10 +292,21 @@ namespace hanjie
             doc.Save(filename);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bmp">Black/white image</param>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn public void FromImage(Bitmap bmp, string filename)
+        ///
+        /// \brief  Import from image.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \exception  ArgumentException   Thrown when one or more arguments have unsupported or illegal
+        ///                                 values.
+        ///
+        /// \param  bmp         Black/white image.
+        /// \param  filename    Filename of the file.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public void FromImage(Bitmap bmp, string filename)
         {
             this.Lines.Clear();
@@ -258,7 +361,17 @@ namespace hanjie
             bmp.UnlockBits(bmpData);
         }
 
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn public void UpdatePixel(Point position, bool enable)
+        ///
+        /// \brief  Updates the pixel.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  position    The position.
+        /// \param  enable      true to enable, false to disable.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         public void UpdatePixel(Point position, bool enable)
         {

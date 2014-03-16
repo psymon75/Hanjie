@@ -1,4 +1,10 @@
-﻿using System;
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////
+/// \file   Form1.cs
+///
+/// \brief  Implements the form 1 class.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,17 +16,42 @@ using System.Drawing.Imaging;
 
 namespace hanjie
 {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// \class  Form1
+    ///
+    /// \brief  A form 1.
+    ///
+    /// \author Simon Menetrey
+    /// \date   16.03.2014
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public partial class Form1 : Form
     {
+        /// \brief  The default height.
         const int DEFAULT_HEIGHT = 10;
+        /// \brief  The default width.
         const int DEFAULT_WIDTH = 10;
+        /// \brief  The default cell size.
         const int DEFAULT_CELL_SIZE = 10;
-        const int OFFSET = 50;
+        /// \brief  The default picross height.
+        const int DEFAULT_PICROSS_HEIGHT = 30;
+        /// \brief  The default picross width.
+        const int DEFAULT_PICROSS_WIDTH = 30;
 
-        bool[,] imgMatrix;
+
+        /// \brief  The g.
         Graphics _g;
 
+        /// \brief  The puzzle.
         Puzzle _puzzle;
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \property   internal Puzzle Puzzle
+        ///
+        /// \brief  Gets or sets the puzzle.
+        ///
+        /// \return The puzzle.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         internal Puzzle Puzzle
         {
@@ -28,11 +59,35 @@ namespace hanjie
             set { _puzzle = value; }
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn public Form1()
+        ///
+        /// \brief  Default constructor.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public Form1()
         {
             InitializeComponent();
             this.Puzzle = new Puzzle();
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private bool[,] ImgToMatrix(Bitmap bmp, int matrixHeight, int matrixWidth)
+        ///
+        /// \brief  Image to matrix.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  bmp             The bitmap.
+        /// \param  matrixHeight    Height of the matrix.
+        /// \param  matrixWidth     Width of the matrix.
+        ///
+        /// \return A bool[,].
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private bool[,] ImgToMatrix(Bitmap bmp, int matrixHeight, int matrixWidth)
         {
@@ -47,6 +102,22 @@ namespace hanjie
             //Regarder les methode de Image pour faire du rééchantillionnage (image sampling)
             return matrix;
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private Bitmap niveauxDeGrisScan(Bitmap bmp)
+        ///
+        /// \brief  Niveaux de gris scan.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \exception  ArgumentException   Thrown when one or more arguments have unsupported or illegal
+        ///                                 values.
+        ///
+        /// \param  bmp The bitmap.
+        ///
+        /// \return A Bitmap.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private Bitmap niveauxDeGrisScan(Bitmap bmp)
         {
@@ -85,16 +156,26 @@ namespace hanjie
             return bmp;
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private void panel1_MouseDown(object sender, MouseEventArgs e)
+        ///
+        /// \brief  Event handler. Called by panel1 for mouse down events.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  sender  Source of the event.
+        /// \param  e       Mouse event information.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                if(new Rectangle(OFFSET,OFFSET,300 + DEFAULT_CELL_SIZE, 300 + DEFAULT_CELL_SIZE).Contains(e.Location))
-                {
+
                 _g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(e.X - e.X % DEFAULT_CELL_SIZE - 1, e.Y - e.Y % DEFAULT_CELL_SIZE - 1, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
                 this.Puzzle.UpdatePixel(ConvertPixelPoint(e.Location),true);
-                }
+             
                 
                 //_g.DrawRectangle(new Pen(Color.Black), new Rectangle(e.X - e.X % DEFAULT_CELL_SIZE, e.Y - e.Y % DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
             }
@@ -106,30 +187,90 @@ namespace hanjie
             }
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private Point ConvertPixelPoint(Point pixelpoint)
+        ///
+        /// \brief  Convert pixel point.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  pixelpoint  The pixelpoint.
+        ///
+        /// \return The pixel converted point.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
         private Point ConvertPixelPoint(Point pixelpoint)
         {
-          return new Point(((pixelpoint.X - OFFSET) - (pixelpoint.X  % DEFAULT_CELL_SIZE - 1)) / DEFAULT_CELL_SIZE, ((pixelpoint.Y - OFFSET) - (pixelpoint.Y % DEFAULT_CELL_SIZE - 1)) / DEFAULT_CELL_SIZE);
+          return new Point(((pixelpoint.X) - (pixelpoint.X  % DEFAULT_CELL_SIZE - 1)) / DEFAULT_CELL_SIZE, ((pixelpoint.Y) - (pixelpoint.Y % DEFAULT_CELL_SIZE - 1)) / DEFAULT_CELL_SIZE);
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private void Form1_Load(object sender, EventArgs e)
+        ///
+        /// \brief  Event handler. Called by Form1 for load events.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  sender  Source of the event.
+        /// \param  e       Event information.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void Form1_Load(object sender, EventArgs e)
         {
             _g = panel1.CreateGraphics();
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private void panel1_Paint(object sender, PaintEventArgs e)
+        ///
+        /// \brief  Event handler. Called by panel1 for paint events.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  sender  Source of the event.
+        /// \param  e       Paint event information.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            for (int y = -1; y <= 300; y += DEFAULT_CELL_SIZE)
-                for (int x = -1; x <= 300; x += DEFAULT_CELL_SIZE)
-                    _g.DrawRectangle(new Pen(Color.Gray), new Rectangle(OFFSET + x,OFFSET + y, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
+            for (int y = -1; y <= (DEFAULT_CELL_SIZE * DEFAULT_PICROSS_HEIGHT); y += DEFAULT_CELL_SIZE)
+                for (int x = -1; x <= (DEFAULT_CELL_SIZE *DEFAULT_PICROSS_WIDTH ); x += DEFAULT_CELL_SIZE)
+                    _g.DrawRectangle(new Pen(Color.Gray), new Rectangle(x,y, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private void DrawAtPosition(int x, int y)
+        ///
+        /// \brief  Draw at position.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  x   The x coordinate.
+        /// \param  y   The y coordinate.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void DrawAtPosition(int x, int y)
         {
-            _g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(x * DEFAULT_CELL_SIZE + OFFSET, y * DEFAULT_CELL_SIZE + OFFSET, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
+            _g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(x * DEFAULT_CELL_SIZE, y * DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE, DEFAULT_CELL_SIZE));
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private void DrawPuzzle()
+        ///
+        /// \brief  Draw puzzle.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void DrawPuzzle()
         {
+            Font drawFont = new Font("Arial", 8);
+            StringFormat drawFormatVertical = new StringFormat(StringFormatFlags.DirectionVertical);
             int countLine = 0;
             int countColums = 0;
             foreach (LineRow line in Puzzle.Lines)
@@ -139,12 +280,33 @@ namespace hanjie
                 {
                     if (c == '1')
                         DrawAtPosition(countColums,countLine);
+                   
                     countColums++;
                             
                 }
+                _g.DrawString(line.IndiceSeparator, drawFont, new SolidBrush(Color.Black), (float)((DEFAULT_CELL_SIZE * DEFAULT_PICROSS_WIDTH) + DEFAULT_CELL_SIZE), (float)(DEFAULT_CELL_SIZE * countLine));
                 countLine++;
             }
+
+            countColums = 0;
+            foreach (LineRow col in Puzzle.Colums)
+            {
+                 _g.DrawString(col.IndiceSeparator, drawFont, new SolidBrush(Color.Black), (float)((DEFAULT_CELL_SIZE * countColums) - 1), (float)((DEFAULT_CELL_SIZE * DEFAULT_PICROSS_HEIGHT) + DEFAULT_CELL_SIZE), drawFormatVertical);
+                 countColums++;
+            }
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private void exporterToolStripMenuItem_Click(object sender, EventArgs e)
+        ///
+        /// \brief  Event handler. Called by exporterToolStripMenuItem for click events.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  sender  Source of the event.
+        /// \param  e       Event information.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void exporterToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -154,6 +316,18 @@ namespace hanjie
                 MessageBox.Show("Exportation réussie !");
             }
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private void imageToolStripMenuItem_Click(object sender, EventArgs e)
+        ///
+        /// \brief  Event handler. Called by imageToolStripMenuItem for click events.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  sender  Source of the event.
+        /// \param  e       Event information.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void imageToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -171,6 +345,18 @@ namespace hanjie
                 DrawPuzzle();
             }
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \fn private void xMLToolStripMenuItem_Click(object sender, EventArgs e)
+        ///
+        /// \brief  Event handler. Called by xMLToolStripMenuItem for click events.
+        ///
+        /// \author Simon Menetrey
+        /// \date   16.03.2014
+        ///
+        /// \param  sender  Source of the event.
+        /// \param  e       Event information.
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void xMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
